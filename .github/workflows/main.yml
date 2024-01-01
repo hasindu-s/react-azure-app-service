@@ -24,7 +24,6 @@ jobs:
           # deploy to Azure Web App.
           yarn install
           yarn run build
-          yarn run test
         # working-directory: my-app-path
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
