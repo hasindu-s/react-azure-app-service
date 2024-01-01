@@ -4,8 +4,8 @@ on:
     branches:
       - master
 env:
-  NODE_VERSION: '20.x'      
-  AZURE_WEBAPP_NAME: d400-react-test-app-2   
+  NODE_VERSION: '20.x'
+  AZURE_WEBAPP_NAME: d400-react-test-app-2
   AZURE_WEBAPP_PACKAGE_PATH: 'build'
 
 jobs:
@@ -13,22 +13,22 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@main
-    - name: Use Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-    - name: Yarn install, build, and test
-      run: |
-        # Build and test the project, then
-        # deploy to Azure Web App.
-        yarn install
-        yarn run build --if-present
-        yarn run test --if-present
-      # working-directory: my-app-path
-    - name: 'Deploy to Azure WebApp'
-      uses: azure/webapps-deploy@v2
-      with: 
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      - uses: actions/checkout@main
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Yarn install, build, and test
+        run: |
+          # Build and test the project, then
+          # deploy to Azure Web App.
+          yarn install
+          yarn run build
+          yarn run test
+        # working-directory: my-app-path
+      - name: 'Deploy to Azure WebApp'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
